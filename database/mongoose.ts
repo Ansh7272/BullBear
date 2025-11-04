@@ -5,7 +5,7 @@ const MONGO_URI = process.env.MONGODB_URI;
 declare global {
     var mongooseCache :{
         conn:typeof mongoose | null;
-        promise:promise<typeof mongoose> | null;
+        promise: Promise<typeof mongoose> | null;
     }
 }
 let cached = global.mongooseCache;
@@ -13,15 +13,15 @@ let cached = global.mongooseCache;
 if (!cached) {
     cached = global.mongooseCache = {conn:null,promise:null}
 }
-export default connectToDatabase = async () => {
+const connectToDatabase = async () => {
     if(!MONGO_URI)throw new Error("MONGODB_URI must be set within .env");
     if(cached.conn)return cached.conn;
-    if(!chached.conn){
+    if(!cached.conn){
         cached.promise = mongoose.connect(MONGO_URI,{bufferCommands:false});
     }
 
     try{
-        cached.conn = await cached.promise();
+        cached.conn = await cached.promise;
     }catch(e){
         cached.promise = null;
         throw e;
@@ -30,3 +30,4 @@ export default connectToDatabase = async () => {
 }
 
 
+export default connectToDatabase
