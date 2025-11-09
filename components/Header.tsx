@@ -11,7 +11,7 @@ const Header = ({ user }: { user: User }) => {
                 <Link href="/">
                     <Image src="/assets/icons/logo.svg" alt="logo.svg" width={140} height={32} className="h-8 w-auto cursor-pointer"/>
                 </Link>
-                <nav className="hidden sm:block ">
+                <nav className="hidden sm:block  ">
                     <NavItems/>
                 </nav>
                 <UserDropdown user={user}/>
